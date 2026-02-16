@@ -38,8 +38,8 @@ export default function BuildPage() {
             Find Similar Players
           </h2>
           <p className="text-lg text-gray-500 mt-4 max-w-lg mx-auto">
-            Define minimum thresholds across 7 dimensions to find active players
-            that match your criteria
+            Define minimum thresholds across 7 dimensions to find active D1
+            players that match your criteria
           </p>
 
           {/* Tab Toggle (links) */}
