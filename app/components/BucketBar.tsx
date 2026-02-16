@@ -127,11 +127,9 @@ function CompactBucket({
   const dotColor = bucketValue != null ? DOT_COLORS[bucketValue] ?? "bg-gray-300" : "bg-gray-200";
   const bucketLabel = bucketValue != null ? BUCKET_LABEL_MAP[bucketValue] ?? "" : "N/A";
 
-  const ringClass = isHighlight
-    ? "ring-2 ring-green-500 ring-offset-1"
-    : isDiff
-      ? "ring-2 ring-red-400 ring-offset-1"
-      : "";
+  const ringClass = isDiff
+    ? "ring-2 ring-red-400 ring-offset-1"
+    : "";
 
   return (
     <div className="flex flex-col items-center gap-0.5" title={`${label}: ${bucketLabel}`}>
