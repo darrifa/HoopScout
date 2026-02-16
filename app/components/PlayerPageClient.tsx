@@ -57,8 +57,19 @@ export default function PlayerPageClient({ playerData, matchData }: Props) {
 
         {/* Error / not found */}
         {!playerData && (
-          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600 mt-6">
-            Player not found.
+          <div className="flex flex-col items-center justify-center py-32">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Airball...
+            </h2>
+            <p className="text-gray-400 mt-2">
+              This player ID doesn&apos;t exist
+            </p>
+            <Link
+              href="/"
+              className="mt-6 text-accent hover:text-accent-light transition-colors font-medium"
+            >
+              Return to home court
+            </Link>
           </div>
         )}
 
