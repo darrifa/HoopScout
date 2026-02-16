@@ -13,12 +13,12 @@ export default function MatchCard({ match }: Props) {
   return (
     <Link
       href={`/player/${match.player_id}`}
-      className="block bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow"
+      className="block bg-white rounded-lg border border-gray-200 p-3 md:p-5 hover:shadow-md transition-shadow"
     >
       {/* Row 1: Name + match badge */}
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-1.5 min-w-0">
-          <h3 className="text-base font-semibold text-gray-900 truncate">
+          <h3 className="font-semibold text-sm md:text-base text-gray-900 truncate">
             {match.full_name}
           </h3>
           <span
@@ -26,8 +26,8 @@ export default function MatchCard({ match }: Props) {
               e.preventDefault();
               window.open(playerSearchUrl(match.full_name, match.team), "_blank", "noopener,noreferrer");
             }}
-            className="text-gray-300 hover:text-accent shrink-0 transition-colors cursor-pointer"
-            title="View on Barttorvik"
+            className="hidden sm:inline text-gray-300 hover:text-accent shrink-0 transition-colors cursor-pointer"
+            title="Search on Google"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -36,7 +36,7 @@ export default function MatchCard({ match }: Props) {
           </span>
         </div>
         <span
-          className={`text-sm font-bold px-2.5 py-0.5 rounded-full shrink-0 ml-2
+          className={`text-[11px] md:text-sm font-bold px-2 py-0.5 rounded-md shrink-0 ml-2
             ${match.buckets_matched >= 6 ? "bg-green-100 text-green-700" : ""}
             ${match.buckets_matched === 5 ? "bg-yellow-100 text-yellow-700" : ""}
             ${match.buckets_matched === 4 ? "bg-orange-100 text-orange-700" : ""}
@@ -47,21 +47,21 @@ export default function MatchCard({ match }: Props) {
         </span>
       </div>
 
-      {/* Row 2: Team, conference, class, height */}
-      <p className="text-sm text-gray-500 mt-1">
+      {/* Row 2: Team · Conf · Class · Height */}
+      <div className="text-[11px] md:text-sm text-gray-500 mb-0.5">
         {match.team}
         {match.conference ? ` \u00b7 ${match.conference}` : ""}
         {match.class_year ? ` \u00b7 ${match.class_year}` : ""}
         {match.height_inches ? ` \u00b7 ${heightDisplay(match.height_inches)}` : ""}
-      </p>
+      </div>
 
       {/* Row 3: Games + usage */}
-      <p className="text-xs text-gray-400 mt-1 mb-4">
+      <div className="text-[10px] md:text-xs text-gray-400 mb-2">
         {match.games} games {"\u00b7"} {match.usage_rate?.toFixed(1)}% USG
-      </p>
+      </div>
 
-      {/* Compact bucket dots */}
-      <div className="flex justify-between mt-4">
+      {/* Row 4: Bucket circles — same layout at all sizes */}
+      <div className="flex justify-evenly mt-1">
         {BUCKET_CONFIG.map((bc) => {
           const diff = match.bucket_diffs[bc.key];
           const candidateVal = diff?.candidate ?? null;

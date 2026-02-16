@@ -10,8 +10,6 @@ interface Props {
   rawStatText?: string;
   /** If true, show a red diff ring around the bar */
   isDiff?: boolean;
-  /** If true, show a green highlight ring (for build results) */
-  isHighlight?: boolean;
   /** Compact mode for match cards */
   compact?: boolean;
 }
@@ -24,12 +22,12 @@ const BAR_COLORS: Record<number, string> = {
   5: "bg-green-600",
 };
 
-const DOT_COLORS: Record<number, string> = {
-  1: "bg-red-500",
-  2: "bg-orange-400",
-  3: "bg-yellow-400",
-  4: "bg-green-400",
-  5: "bg-green-600",
+const DOT_COLORS: Record<number, { bg: string; text: string }> = {
+  1: { bg: "bg-red-400", text: "text-white" },
+  2: { bg: "bg-orange-400", text: "text-white" },
+  3: { bg: "bg-yellow-400", text: "text-gray-800" },
+  4: { bg: "bg-green-400", text: "text-white" },
+  5: { bg: "bg-green-600", text: "text-white" },
 };
 
 export default function BucketBar({
@@ -38,7 +36,6 @@ export default function BucketBar({
   bucketValue,
   rawStatText,
   isDiff = false,
-  isHighlight = false,
   compact = false,
 }: Props) {
   if (compact) {
@@ -48,7 +45,6 @@ export default function BucketBar({
         compactLabel={compactLabel ?? label}
         bucketValue={bucketValue}
         isDiff={isDiff}
-        isHighlight={isHighlight}
       />
     );
   }
@@ -116,15 +112,15 @@ function CompactBucket({
   compactLabel,
   bucketValue,
   isDiff,
-  isHighlight,
 }: {
   label: string;
   compactLabel: string;
   bucketValue: number | null;
   isDiff?: boolean;
-  isHighlight?: boolean;
 }) {
-  const dotColor = bucketValue != null ? DOT_COLORS[bucketValue] ?? "bg-gray-300" : "bg-gray-200";
+  const color = bucketValue != null
+    ? DOT_COLORS[bucketValue] ?? { bg: "bg-gray-300", text: "text-white" }
+    : { bg: "bg-gray-200", text: "text-gray-400" };
   const bucketLabel = bucketValue != null ? BUCKET_LABEL_MAP[bucketValue] ?? "" : "N/A";
 
   const ringClass = isDiff
@@ -132,15 +128,13 @@ function CompactBucket({
     : "";
 
   return (
-    <div className="flex flex-col items-center gap-0.5" title={`${label}: ${bucketLabel}`}>
+    <div className="flex flex-col items-center" title={`${label}: ${bucketLabel}`}>
       <div
-        className={`w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white text-[10px] md:text-xs font-bold
-          ${dotColor} ${ringClass}
-        `}
+        className={`w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-[10px] md:text-xs font-bold ${color.bg} ${color.text} ${ringClass}`}
       >
         {bucketValue ?? "\u2014"}
       </div>
-      <span className="hidden md:block text-xs text-gray-400 leading-tight text-center">
+      <span className="text-[9px] md:text-[10px] text-gray-400 mt-0.5">
         {compactLabel}
       </span>
     </div>

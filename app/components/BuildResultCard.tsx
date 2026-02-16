@@ -16,17 +16,15 @@ export default function BuildResultCard({ result, rank, criteria }: Props) {
   return (
     <Link
       href={`/player/${result.player_id}`}
-      className="block bg-white rounded-xl border border-gray-200 md:border-gray-100 p-2.5 md:p-5 transition-all hover:shadow-md hover:scale-[1.01]"
+      className="block bg-white rounded-lg border border-gray-200 p-3 md:p-5 transition-all hover:shadow-md hover:scale-[1.01]"
     >
-      {/* Line 1: rank + name + score */}
-      <div className="flex items-center justify-between gap-1.5 md:gap-3">
-        <div className="flex items-center gap-1.5 md:gap-3 min-w-0">
-          <span className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-100 text-gray-500 text-[9px] md:text-xs font-bold flex items-center justify-center shrink-0">
-            {rank}
-          </span>
-          <h3 className="text-sm md:text-base font-semibold text-gray-900 leading-tight truncate">
+      {/* Row 1: Rank + Name + Score */}
+      <div className="flex items-center justify-between mb-1">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs text-gray-400 font-medium shrink-0">{rank}</span>
+          <span className="font-semibold text-sm md:text-base text-gray-900 truncate">
             {result.full_name}
-          </h3>
+          </span>
           <span
             onClick={(e) => {
               e.preventDefault();
@@ -54,40 +52,28 @@ export default function BuildResultCard({ result, rank, criteria }: Props) {
             </svg>
           </span>
         </div>
-        <span className="text-[10px] md:text-xs font-semibold px-1.5 md:px-2 py-0.5 md:py-1 rounded-md shrink-0 bg-green-50 text-green-700 border border-green-100">
+        <span className="text-[11px] md:text-sm font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded-md shrink-0 ml-2">
           {result.bucket_sum}/35
         </span>
       </div>
 
-      {/* Line 2: Team · Conf · Class · Height */}
-      <p className="text-[11px] md:text-sm text-gray-500 mt-0.5 md:mt-1 truncate pl-[26px] md:pl-10">
+      {/* Row 2: Team · Conf · Class · Height */}
+      <div className="text-[11px] md:text-sm text-gray-500 mb-0.5 pl-5 md:pl-6 truncate">
         {result.team}
-        {result.conference && (
-          <span className="text-gray-300"> &middot; </span>
-        )}
-        {result.conference && <span>{result.conference}</span>}
-        {(result.class_year || result.height_inches) && (
-          <span className="text-gray-300"> &middot; </span>
-        )}
-        {result.class_year && <span>{result.class_year}</span>}
-        {result.class_year && result.height_inches && (
-          <span className="text-gray-300"> &middot; </span>
-        )}
-        {result.height_inches && <span>{heightDisplay(result.height_inches)}</span>}
-      </p>
+        {result.conference && ` \u00b7 ${result.conference}`}
+        {result.class_year && ` \u00b7 ${result.class_year}`}
+        {result.height_inches && ` \u00b7 ${heightDisplay(result.height_inches)}`}
+      </div>
 
-      {/* Line 3: Games · USG% */}
-      <p className="text-[10px] md:text-xs text-gray-400 mt-0 md:mt-0.5 pl-[26px] md:pl-10">
-        <span>{result.games} games</span>
-        <span className="text-gray-300"> &middot; </span>
-        <span>{result.usage_rate?.toFixed(1)}% USG</span>
-      </p>
+      {/* Row 3: Games · USG% */}
+      <div className="text-[10px] md:text-xs text-gray-400 mb-2 pl-5 md:pl-6">
+        {result.games} games &middot; {result.usage_rate?.toFixed(1)}% USG
+      </div>
 
-      {/* Line 4: Bucket circles */}
-      <div className="flex justify-between gap-1.5 md:gap-3 mt-1.5 md:mt-4 pt-0 md:pt-4 md:border-t md:border-gray-50">
+      {/* Row 4: Bucket circles — same layout at all sizes, just scaled */}
+      <div className="flex justify-evenly mt-1">
         {BUCKET_CONFIG.map((bc) => {
           const val = result[bc.key as keyof BuildSearchResult] as number | null;
-
           return (
             <BucketBar
               key={bc.key}
