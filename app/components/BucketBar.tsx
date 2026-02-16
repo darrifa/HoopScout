@@ -10,6 +10,8 @@ interface Props {
   rawStatText?: string;
   /** If true, show a red diff ring around the bar */
   isDiff?: boolean;
+  /** If true, show a green highlight ring (for build results) */
+  isHighlight?: boolean;
   /** Compact mode for match cards */
   compact?: boolean;
 }
@@ -36,6 +38,7 @@ export default function BucketBar({
   bucketValue,
   rawStatText,
   isDiff = false,
+  isHighlight = false,
   compact = false,
 }: Props) {
   if (compact) {
@@ -45,6 +48,7 @@ export default function BucketBar({
         compactLabel={compactLabel ?? label}
         bucketValue={bucketValue}
         isDiff={isDiff}
+        isHighlight={isHighlight}
       />
     );
   }
@@ -112,21 +116,28 @@ function CompactBucket({
   compactLabel,
   bucketValue,
   isDiff,
+  isHighlight,
 }: {
   label: string;
   compactLabel: string;
   bucketValue: number | null;
   isDiff?: boolean;
+  isHighlight?: boolean;
 }) {
   const dotColor = bucketValue != null ? DOT_COLORS[bucketValue] ?? "bg-gray-300" : "bg-gray-200";
   const bucketLabel = bucketValue != null ? BUCKET_LABEL_MAP[bucketValue] ?? "" : "N/A";
+
+  const ringClass = isHighlight
+    ? "ring-2 ring-green-500 ring-offset-1"
+    : isDiff
+      ? "ring-2 ring-red-400 ring-offset-1"
+      : "";
 
   return (
     <div className="flex flex-col items-center gap-0.5" title={`${label}: ${bucketLabel}`}>
       <div
         className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white text-xs font-bold
-          ${dotColor}
-          ${isDiff ? "ring-2 ring-red-400 ring-offset-1" : ""}
+          ${dotColor} ${ringClass}
         `}
       >
         {bucketValue ?? "\u2014"}

@@ -123,6 +123,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_3pt",
     label: "3PT Shooting",
     compactLabel: "3PT",
+    tooltip: "Combines 3PT attempts per game and 3PT% into a single volume-adjusted score, ranked within position group.",
     statKey: "three_pt_score",
     formatStat: (s: PlayerStats) => {
       const att = s.three_pt_attempts_pg;
@@ -136,6 +137,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_2pt",
     label: "2PT Shooting",
     compactLabel: "2PT",
+    tooltip: "Combines 2PT attempts per game and 2PT% into a single volume-adjusted score, ranked within position group.",
     statKey: "two_pt_score",
     formatStat: (s: PlayerStats) => {
       const att = s.two_pt_attempts_pg;
@@ -149,6 +151,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_playmaking",
     label: "Playmaking",
     compactLabel: "Play",
+    tooltip: "Based on assist-to-turnover ratio, ranked within position group.",
     statKey: "ast_to_ratio",
     formatStat: (s: PlayerStats) => {
       const ast = s.ast_pg;
@@ -162,6 +165,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_reb",
     label: "Rebounds",
     compactLabel: "REB",
+    tooltip: "Total rebounds per game, ranked within position group.",
     statKey: "rpg",
     formatStat: (s: PlayerStats) => {
       const v = s.rpg;
@@ -172,6 +176,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_usage",
     label: "Usage",
     compactLabel: "USG",
+    tooltip: "Percentage of team possessions used while on the floor, ranked within position group.",
     statKey: "usage_rate",
     formatStat: (s: PlayerStats) => {
       const v = s.usage_rate;
@@ -182,6 +187,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_def",
     label: "Defense",
     compactLabel: "DEF",
+    tooltip: "Adjusted defensive efficiency — points allowed per 100 possessions, ranked within position group (lower is better).",
     statKey: "adj_de",
     formatStat: (s: PlayerStats) => {
       const v = s.adj_de;
@@ -192,6 +198,7 @@ export const BUCKET_CONFIG = [
     key: "bucket_height",
     label: "Height",
     compactLabel: "HGT",
+    tooltip: "Listed height, ranked within position group.",
     statKey: "height_inches",
     formatStat: (_s: PlayerStats, heightInches?: number | null) => {
       if (heightInches == null) return "\u2014";
@@ -220,4 +227,36 @@ export function heightDisplay(inches: number | null): string {
 export function playerSearchUrl(playerName: string, team: string): string {
   const q = `${playerName} ${team} college basketball`.replace(/ /g, "+");
   return `https://www.google.com/search?q=${q}`;
+}
+
+/* ── Profile Builder types ── */
+
+export const POSITION_GROUPS = ["Guard", "Wing", "Big"] as const;
+export type PositionGroup = (typeof POSITION_GROUPS)[number];
+
+export interface BuildSearchResult {
+  player_id: number;
+  full_name: string;
+  team: string;
+  conference: string | null;
+  position: string | null;
+  position_group: string;
+  height_inches: number | null;
+  class_year: string | null;
+  games: number;
+  minutes_pg: number | null;
+  usage_rate: number | null;
+  bucket_3pt: number | null;
+  bucket_2pt: number | null;
+  bucket_playmaking: number | null;
+  bucket_reb: number | null;
+  bucket_usage: number | null;
+  bucket_def: number | null;
+  bucket_height: number | null;
+  bucket_sum: number;
+}
+
+export interface BuildSearchResponse {
+  total_count: number;
+  results: BuildSearchResult[];
 }

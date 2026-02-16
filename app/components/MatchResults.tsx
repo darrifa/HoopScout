@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import type { MatchesResponse } from "@/app/lib/types";
 import MatchCard from "./MatchCard";
 
@@ -8,11 +8,17 @@ interface Props {
   data: MatchesResponse;
 }
 
+const INITIAL_COUNT = 20;
+const LOAD_MORE_COUNT = 10;
+
 export default function MatchResults({ data }: Props) {
   const { matches, total_candidates_evaluated, reference } = data;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
 
-  // Take top 20, already sorted by buckets_matched DESC then usage DESC from API
-  const top20 = useMemo(() => matches.slice(0, 20), [matches]);
+  const visible = useMemo(
+    () => matches.slice(0, visibleCount),
+    [matches, visibleCount]
+  );
 
   if (matches.length === 0) {
     return (
@@ -40,10 +46,24 @@ export default function MatchResults({ data }: Props) {
 
       {/* Match cards grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-        {top20.map((m) => (
+        {visible.map((m) => (
           <MatchCard key={m.player_id} match={m} />
         ))}
       </div>
+
+      {/* Load More */}
+      {visibleCount < matches.length && (
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={() =>
+              setVisibleCount((c) => Math.min(c + LOAD_MORE_COUNT, matches.length))
+            }
+            className="px-6 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all cursor-pointer"
+          >
+            Show More ({matches.length - visibleCount} remaining)
+          </button>
+        </div>
+      )}
     </div>
   );
 }

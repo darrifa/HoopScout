@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { SearchResult } from "@/app/lib/types";
 import SearchBar from "@/app/components/SearchBar";
+import ProfileBuilder from "@/app/components/ProfileBuilder";
 
 export default function Home() {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<"search" | "build">("search");
 
   const handleSelect = (player: SearchResult) => {
     router.push(`/player/${player.id}`);
@@ -46,35 +49,73 @@ export default function Home() {
             Find Similar Players
           </h2>
           <p className="text-lg text-gray-500 mt-4 max-w-lg mx-auto">
-            Search any D1 college basketball player to find active players
-            with a similar statistical profile
+            {activeTab === "search"
+              ? "Search any D1 college basketball player to find active players with a similar statistical profile"
+              : "Define minimum thresholds across 7 dimensions to find active players that match your criteria"}
           </p>
 
-          <div className="max-w-2xl mx-auto mt-8">
-            <SearchBar onSelect={handleSelect} />
+          {/* Tab Toggle */}
+          <div className="inline-flex bg-gray-100 rounded-lg p-1 mt-8" role="tablist">
+            <button
+              onClick={() => setActiveTab("search")}
+              role="tab"
+              aria-selected={activeTab === "search"}
+              className={`px-5 py-2.5 rounded-md text-sm font-medium transition-all cursor-pointer ${
+                activeTab === "search"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              Search by Player
+            </button>
+            <button
+              onClick={() => setActiveTab("build")}
+              role="tab"
+              aria-selected={activeTab === "build"}
+              className={`px-5 py-2.5 rounded-md text-sm font-medium transition-all cursor-pointer ${
+                activeTab === "build"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              Build a Profile
+            </button>
           </div>
-
-          {/* Stat cards */}
-          <div className="flex justify-center gap-8 mt-16 flex-wrap">
-            <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="text-3xl font-bold text-gray-900">90,000+</div>
-              <div className="text-sm text-gray-500 mt-1">Player Seasons</div>
-            </div>
-            <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="text-3xl font-bold text-gray-900">19</div>
-              <div className="text-sm text-gray-500 mt-1">Years of Data</div>
-            </div>
-            <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="text-3xl font-bold text-gray-900">7</div>
-              <div className="text-sm text-gray-500 mt-1">Matching Dimensions</div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <p className="text-center text-xs text-gray-400 mt-16">
-            Data sourced from Barttorvik &middot; 2007-08 through 2025-26 seasons
-          </p>
         </div>
+
+        {/* Tab Content */}
+        {activeTab === "search" ? (
+          <div className="text-center">
+            <div className="max-w-2xl mx-auto mt-8">
+              <SearchBar onSelect={handleSelect} />
+            </div>
+
+            {/* Stat cards */}
+            <div className="flex justify-center gap-8 mt-16 flex-wrap">
+              <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                <div className="text-3xl font-bold text-gray-900">90,000+</div>
+                <div className="text-sm text-gray-500 mt-1">Player Seasons</div>
+              </div>
+              <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                <div className="text-3xl font-bold text-gray-900">19</div>
+                <div className="text-sm text-gray-500 mt-1">Years of Data</div>
+              </div>
+              <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                <div className="text-3xl font-bold text-gray-900">7</div>
+                <div className="text-sm text-gray-500 mt-1">Matching Dimensions</div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-8">
+            <ProfileBuilder />
+          </div>
+        )}
+
+        {/* Footer */}
+        <p className="text-center text-xs text-gray-400 mt-16">
+          Data sourced from Barttorvik &middot; 2007-08 through 2025-26 seasons
+        </p>
       </main>
     </div>
   );
