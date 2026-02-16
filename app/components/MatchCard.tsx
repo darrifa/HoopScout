@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { MatchResult } from "@/app/lib/types";
 import { BUCKET_CONFIG, heightDisplay, playerSearchUrl } from "@/app/lib/types";
 import BucketBar from "./BucketBar";
@@ -10,25 +11,29 @@ interface Props {
 
 export default function MatchCard({ match }: Props) {
   return (
-    <div className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow">
+    <Link
+      href={`/player/${match.player_id}`}
+      className="block bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow"
+    >
       {/* Row 1: Name + match badge */}
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-1.5 min-w-0">
           <h3 className="text-base font-semibold text-gray-900 truncate">
             {match.full_name}
           </h3>
-          <a
-            href={playerSearchUrl(match.full_name, match.team)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-accent shrink-0 transition-colors"
+          <span
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(playerSearchUrl(match.full_name, match.team), "_blank", "noopener,noreferrer");
+            }}
+            className="text-gray-300 hover:text-accent shrink-0 transition-colors cursor-pointer"
             title="View on Barttorvik"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-          </a>
+          </span>
         </div>
         <span
           className={`text-sm font-bold px-2.5 py-0.5 rounded-full shrink-0 ml-2
@@ -75,6 +80,6 @@ export default function MatchCard({ match }: Props) {
           );
         })}
       </div>
-    </div>
+    </Link>
   );
 }
