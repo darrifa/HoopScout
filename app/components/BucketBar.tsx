@@ -136,13 +136,13 @@ function CompactBucket({
   return (
     <div className="flex flex-col items-center gap-0.5" title={`${label}: ${bucketLabel}`}>
       <div
-        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white text-xs font-bold
+        className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white text-[10px] sm:text-xs font-bold
           ${dotColor} ${ringClass}
         `}
       >
         {bucketValue ?? "\u2014"}
       </div>
-      <span className="text-xs text-gray-400 leading-tight text-center mt-1">
+      <span className="text-[10px] sm:text-xs text-gray-400 leading-tight text-center mt-0.5">
         {compactLabel}
       </span>
     </div>

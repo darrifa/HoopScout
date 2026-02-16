@@ -24,20 +24,20 @@ const BUCKET_NAMES_DISPLAY: Record<number, string> = {
 };
 
 const SEGMENT_COLORS_ACTIVE: Record<number, string> = {
-  2: "bg-orange-300 border-orange-400",
-  3: "bg-yellow-400 border-yellow-500",
-  4: "bg-green-400 border-green-500",
-  5: "bg-green-600 border-green-700",
+  2: "bg-orange-300 border-orange-300",
+  3: "bg-yellow-400 border-yellow-400",
+  4: "bg-green-400 border-green-400",
+  5: "bg-green-600 border-green-600",
 };
 
 const SEGMENT_TEXT_DARK: Set<number> = new Set([4, 5]);
 
 const CONTEXTUAL_LABEL: Record<number, { text: string; color: string }> = {
   0: { text: "No minimum", color: "text-gray-400" },
-  2: { text: "40th+ percentile", color: "text-orange-500" },
-  3: { text: "60th+ percentile", color: "text-yellow-600" },
-  4: { text: "80th+ percentile", color: "text-green-500" },
-  5: { text: "95th+ percentile", color: "text-green-700" },
+  2: { text: "Top 90% at position", color: "text-orange-500" },
+  3: { text: "Top 70% at position", color: "text-yellow-600" },
+  4: { text: "Top 30% at position", color: "text-green-500" },
+  5: { text: "Top 10% at position", color: "text-green-700" },
 };
 
 export default function DimensionScale({ label, tooltip, value, onChange }: Props) {
