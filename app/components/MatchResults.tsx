@@ -45,7 +45,7 @@ export default function MatchResults({ data }: Props) {
       </div>
 
       {/* Match cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-6">
         {visible.map((m) => (
           <MatchCard key={m.player_id} match={m} />
         ))}
