@@ -120,7 +120,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
 
       {/* Dropdown */}
       {isOpen && results.length > 0 && (
-        <ul className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
+        <ul className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
           {results.map((player, idx) => (
             <li
               key={player.id}
@@ -155,7 +155,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
       )}
 
       {isOpen && results.length === 0 && query.trim().length >= 2 && !loading && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50 px-4 py-3 text-sm text-gray-500">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 px-4 py-3 text-sm text-gray-500">
           No players found for &ldquo;{query}&rdquo;
         </div>
       )}

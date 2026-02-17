@@ -23,7 +23,7 @@ const BAR_COLORS: Record<number, string> = {
 };
 
 const DOT_COLORS: Record<number, { bg: string; text: string }> = {
-  1: { bg: "bg-red-400", text: "text-white" },
+  1: { bg: "bg-red-500", text: "text-white" },
   2: { bg: "bg-orange-400", text: "text-white" },
   3: { bg: "bg-yellow-400", text: "text-gray-800" },
   4: { bg: "bg-green-400", text: "text-white" },
