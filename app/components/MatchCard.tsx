@@ -65,8 +65,6 @@ export default function MatchCard({ match }: Props) {
         {BUCKET_CONFIG.map((bc) => {
           const diff = match.bucket_diffs[bc.key];
           const candidateVal = diff?.candidate ?? null;
-          const isMatch = diff?.match ?? false;
-          const isDiff = diff ? !isMatch : false;
 
           return (
             <BucketBar
@@ -74,7 +72,6 @@ export default function MatchCard({ match }: Props) {
               label={bc.label}
               compactLabel={bc.compactLabel}
               bucketValue={candidateVal}
-              isDiff={isDiff}
               compact
             />
           );

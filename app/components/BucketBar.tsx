@@ -8,8 +8,6 @@ interface Props {
   compactLabel?: string;
   bucketValue: number | null;
   rawStatText?: string;
-  /** If true, show a red diff ring around the bar */
-  isDiff?: boolean;
   /** Compact mode for match cards */
   compact?: boolean;
 }
@@ -35,7 +33,6 @@ export default function BucketBar({
   compactLabel,
   bucketValue,
   rawStatText,
-  isDiff = false,
   compact = false,
 }: Props) {
   if (compact) {
@@ -44,7 +41,6 @@ export default function BucketBar({
         label={label}
         compactLabel={compactLabel ?? label}
         bucketValue={bucketValue}
-        isDiff={isDiff}
       />
     );
   }
@@ -62,10 +58,7 @@ export default function BucketBar({
 
       {/* Bar track */}
       <div className="flex-1 flex items-center gap-2">
-        <div
-          className={`relative h-5 flex-1 bg-gray-100 rounded-full overflow-hidden
-            ${isDiff ? "ring-2 ring-red-400 ring-offset-1" : ""}`}
-        >
+        <div className="relative h-5 flex-1 bg-gray-100 rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-500 ease-out ${barColor}`}
             style={{ width: `${widthPct}%` }}
@@ -111,26 +104,20 @@ function CompactBucket({
   label,
   compactLabel,
   bucketValue,
-  isDiff,
 }: {
   label: string;
   compactLabel: string;
   bucketValue: number | null;
-  isDiff?: boolean;
 }) {
   const color = bucketValue != null
     ? DOT_COLORS[bucketValue] ?? { bg: "bg-gray-300", text: "text-white" }
     : { bg: "bg-gray-200", text: "text-gray-400" };
   const bucketLabel = bucketValue != null ? BUCKET_LABEL_MAP[bucketValue] ?? "" : "N/A";
 
-  const ringClass = isDiff
-    ? "ring-2 ring-red-400 ring-offset-1"
-    : "";
-
   return (
     <div className="flex flex-col items-center" title={`${label}: ${bucketLabel}`}>
       <div
-        className={`w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-[10px] md:text-xs font-bold ${color.bg} ${color.text} ${ringClass}`}
+        className={`w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-[10px] md:text-xs font-bold ${color.bg} ${color.text}`}
       >
         {bucketValue ?? "\u2014"}
       </div>
