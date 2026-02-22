@@ -22,7 +22,7 @@ export default function MatchResults({ data }: Props) {
 
   if (matches.length === 0) {
     return (
-      <div className="text-center py-10 text-gray-400">
+      <div className="text-center py-10 text-muted-foreground">
         <p className="text-lg font-medium">No matches found</p>
         <p className="text-sm mt-1">
           Evaluated {total_candidates_evaluated} active{" "}
@@ -36,10 +36,10 @@ export default function MatchResults({ data }: Props) {
     <div>
       {/* Header */}
       <div>
-        <h3 className="text-xl font-semibold text-gray-900">
+        <h3 className="text-xl font-semibold text-foreground">
           Top Matches
         </h3>
-        <p className="text-sm text-gray-400 mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           {total_candidates_evaluated} active {reference.player.position_group}s evaluated
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function MatchResults({ data }: Props) {
             onClick={() =>
               setVisibleCount((c) => Math.min(c + LOAD_MORE_COUNT, matches.length))
             }
-            className="px-6 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all cursor-pointer"
+            className="px-6 py-2.5 text-sm font-medium text-muted-foreground bg-card border border-border rounded-xl hover:bg-muted hover:shadow-sm transition-all cursor-pointer"
           >
             Show More ({matches.length - visibleCount} remaining)
           </button>

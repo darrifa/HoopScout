@@ -86,7 +86,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
       <div className="relative">
         {/* Search icon */}
         <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -106,45 +106,45 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
           onKeyDown={handleKeyDown}
           onFocus={() => results.length > 0 && setIsOpen(true)}
           placeholder="Search for a player..."
-          className={`w-full pl-12 pr-4 bg-white border border-gray-200 rounded-xl shadow-sm
-                     focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent
+          className={`w-full pl-12 pr-4 bg-card border border-border rounded-xl shadow-sm
+                     focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
                      transition-shadow hover:shadow-md
                      ${compact ? "py-2 text-sm" : "py-3 text-base"}`}
         />
         {loading && (
           <div className="absolute right-3.5 top-1/2 -translate-y-1/2">
-            <div className="w-5 h-5 border-2 border-gray-300 border-t-accent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-border border-t-accent rounded-full animate-spin" />
           </div>
         )}
       </div>
 
       {/* Dropdown */}
       {isOpen && results.length > 0 && (
-        <ul className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
+        <ul className="absolute top-full left-0 right-0 mt-1 bg-card rounded-xl shadow-lg border border-border overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
           {results.map((player, idx) => (
             <li
               key={player.id}
               onClick={() => handleSelect(player)}
               onMouseEnter={() => setHighlightIdx(idx)}
               className={`px-4 py-3 cursor-pointer transition-colors
-                ${idx === highlightIdx ? "bg-orange-50" : "hover:bg-gray-50"}`}
+                ${idx === highlightIdx ? "bg-primary/10" : "hover:bg-muted"}`}
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-2">
-                  <span className="text-base font-medium text-gray-900">
+                  <span className="text-base font-medium text-foreground">
                     {player.full_name}
                   </span>
                   {player.is_graduated && (
-                    <span className="text-xs bg-gray-100 text-gray-500 rounded-full px-2 py-0.5">
+                    <span className="text-xs bg-muted text-muted-foreground rounded-full px-2 py-0.5">
                       historical
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-medium bg-orange-100 text-orange-700 rounded-full px-2 py-1 shrink-0 ml-3">
+                <span className="text-xs font-medium bg-primary/15 text-primary rounded-full px-2 py-1 shrink-0 ml-3">
                   {player.position_group}
                 </span>
               </div>
-              <div className="text-sm text-gray-500 mt-0.5">
+              <div className="text-sm text-muted-foreground mt-0.5">
                 {player.team}
                 {player.conference ? ` \u00b7 ${player.conference}` : ""}
                 {player.class_year ? ` \u00b7 ${player.class_year}` : ""}
@@ -155,7 +155,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
       )}
 
       {isOpen && results.length === 0 && query.trim().length >= 2 && !loading && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 px-4 py-3 text-sm text-gray-500">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-card rounded-xl shadow-lg border border-border overflow-hidden z-50 px-4 py-3 text-sm text-muted-foreground">
           No players found for &ldquo;{query}&rdquo;
         </div>
       )}

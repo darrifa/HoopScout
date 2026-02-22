@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 import "./globals.css";
+
+const fontSans = Roboto({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: "HoopScout — College Basketball Player Comparison",
@@ -13,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={fontSans.variable}>
       <body>{children}</body>
     </html>
   );

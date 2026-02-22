@@ -16,13 +16,13 @@ export default function BuildResultCard({ result, rank, criteria }: Props) {
   return (
     <Link
       href={`/player/${result.player_id}`}
-      className="block bg-white rounded-lg border border-gray-200 p-3 md:p-5 transition-all hover:shadow-md hover:scale-[1.01]"
+      className="block bg-card rounded-lg border border-border p-3 md:p-5 transition-all hover:shadow-md hover:scale-[1.01]"
     >
       {/* Row 1: Rank + Name + Score */}
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-xs text-gray-400 font-medium shrink-0">{rank}</span>
-          <span className="font-semibold text-sm md:text-base text-gray-900 truncate">
+          <span className="text-xs text-muted-foreground font-medium shrink-0">{rank}</span>
+          <span className="font-semibold text-sm md:text-base text-foreground truncate">
             {result.full_name}
           </span>
           <span
@@ -34,7 +34,7 @@ export default function BuildResultCard({ result, rank, criteria }: Props) {
                 "noopener,noreferrer"
               );
             }}
-            className="hidden sm:inline text-gray-300 hover:text-accent shrink-0 transition-colors cursor-pointer"
+            className="hidden sm:inline text-muted-foreground/40 hover:text-accent shrink-0 transition-colors cursor-pointer"
             title="Search on Google"
           >
             <svg
@@ -58,7 +58,7 @@ export default function BuildResultCard({ result, rank, criteria }: Props) {
       </div>
 
       {/* Row 2: Team · Conf · Class · Height */}
-      <div className="text-[11px] md:text-sm text-gray-500 mb-0.5 pl-5 md:pl-6 truncate">
+      <div className="text-[11px] md:text-sm text-muted-foreground mb-0.5 pl-5 md:pl-6 truncate">
         {result.team}
         {result.conference && ` \u00b7 ${result.conference}`}
         {result.class_year && ` \u00b7 ${result.class_year}`}
@@ -66,7 +66,7 @@ export default function BuildResultCard({ result, rank, criteria }: Props) {
       </div>
 
       {/* Row 3: Games · USG% */}
-      <div className="text-[10px] md:text-xs text-gray-400 mb-2 pl-5 md:pl-6">
+      <div className="text-[10px] md:text-xs text-muted-foreground mb-2 pl-5 md:pl-6">
         {result.games} games &middot; {result.usage_rate?.toFixed(1)}% USG
       </div>
 

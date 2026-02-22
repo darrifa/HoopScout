@@ -13,9 +13,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-card border-b border-border sticky top-0 z-40">
         <div className="px-6 py-3 flex items-center gap-3">
           <Link
             href="/"
@@ -32,7 +32,7 @@ export default function Home() {
               <path d="M4.93 4.93C8 8 12 10 12 12C12 14 8 16 4.93 19.07" stroke="currentColor" strokeWidth="1.2" fill="none" />
               <path d="M19.07 4.93C16 8 12 10 12 12C12 14 16 16 19.07 19.07" stroke="currentColor" strokeWidth="1.2" fill="none" />
             </svg>
-            <h1 className="text-xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-xl font-bold text-foreground leading-tight">
               Hoop<span className="text-accent">Scout</span>
             </h1>
           </Link>
@@ -42,22 +42,22 @@ export default function Home() {
       {/* Main content */}
       <main className="max-w-5xl mx-auto px-6 py-8">
         <div className="text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mt-16">
+          <h2 className="text-4xl font-bold text-foreground mt-16">
             Find Similar Players
           </h2>
-          <p className="text-lg text-gray-500 mt-4 max-w-lg mx-auto">
+          <p className="text-lg text-muted-foreground mt-4 max-w-lg mx-auto">
             Search any D1 college basketball player to find active players with a
             similar statistical profile
           </p>
 
           {/* Tab Toggle */}
-          <div className="inline-flex bg-gray-100 rounded-lg p-1 mt-8">
-            <span className="px-5 py-2.5 rounded-md text-sm font-medium bg-white text-gray-900 shadow-sm">
+          <div className="inline-flex bg-muted rounded-lg p-1 mt-8">
+            <span className="px-5 py-2.5 rounded-md text-sm font-medium bg-card text-foreground shadow-sm">
               Search by Player
             </span>
             <Link
               href="/build"
-              className="px-5 py-2.5 rounded-md text-sm font-medium transition-all text-gray-500 hover:text-gray-700"
+              className="px-5 py-2.5 rounded-md text-sm font-medium transition-all text-muted-foreground hover:text-foreground"
             >
               Build a Profile
             </Link>
@@ -71,23 +71,23 @@ export default function Home() {
 
           {/* Stat cards */}
           <div className="flex justify-center gap-8 mt-16 flex-wrap">
-            <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="text-3xl font-bold text-gray-900">90,000+</div>
-              <div className="text-sm text-gray-500 mt-1">Player Seasons</div>
+            <div className="bg-card rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className="text-3xl font-bold text-foreground">90,000+</div>
+              <div className="text-sm text-muted-foreground mt-1">Player Seasons</div>
             </div>
-            <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="text-3xl font-bold text-gray-900">19</div>
-              <div className="text-sm text-gray-500 mt-1">Years of Data</div>
+            <div className="bg-card rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className="text-3xl font-bold text-foreground">19</div>
+              <div className="text-sm text-muted-foreground mt-1">Years of Data</div>
             </div>
-            <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="text-3xl font-bold text-gray-900">7</div>
-              <div className="text-sm text-gray-500 mt-1">Matching Dimensions</div>
+            <div className="bg-card rounded-2xl px-8 py-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className="text-3xl font-bold text-foreground">7</div>
+              <div className="text-sm text-muted-foreground mt-1">Matching Dimensions</div>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <p className="text-center text-xs text-gray-400 mt-16">
+        <p className="text-center text-xs text-muted-foreground mt-16">
           Data sourced from Barttorvik &middot; 2007-08 through 2025-26 seasons
         </p>
       </main>

@@ -101,17 +101,17 @@ export default function ProfileBuilder() {
     <div className="max-w-3xl mx-auto">
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-gray-900">
+        <h3 className="text-2xl font-bold text-foreground">
           Build a Player Profile
         </h3>
-        <p className="text-gray-500 mt-1">
+        <p className="text-muted-foreground mt-1">
           Set minimum thresholds — find active players who meet your floor
         </p>
       </div>
 
       {/* Position Selector */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 shadow-sm">
-        <div className="text-sm font-medium text-gray-700 mb-3">
+      <div className="bg-card rounded-xl border border-border p-5 mb-4 shadow-sm">
+        <div className="text-sm font-medium text-foreground mb-3">
           Position Group
         </div>
         <div className="flex gap-2">
@@ -122,7 +122,7 @@ export default function ProfileBuilder() {
               className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all border cursor-pointer ${
                 positionGroup === pos
                   ? "bg-accent text-white border-accent"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"
+                  : "bg-card text-muted-foreground border-border hover:border-foreground/20"
               }`}
             >
               {pos}
@@ -132,7 +132,7 @@ export default function ProfileBuilder() {
       </div>
 
       {/* Dimension Scales */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm px-5 divide-y divide-gray-100">
+      <div className="bg-card rounded-xl border border-border shadow-sm px-5 divide-y divide-border/50">
         {BUCKET_CONFIG.map((bc) => (
           <DimensionScale
             key={bc.key}
@@ -146,8 +146,8 @@ export default function ProfileBuilder() {
 
       {/* Summary Bar */}
       {activeCount > 0 && (
-        <div className="mt-4 bg-orange-50 border border-orange-200 rounded-xl p-4">
-          <div className="text-sm text-orange-800">
+        <div className="mt-4 bg-primary/10 border border-primary/20 rounded-xl p-4">
+          <div className="text-sm text-primary">
             <span className="font-semibold">Your criteria:</span>{" "}
             {BUCKET_CONFIG.filter((bc) => minimums[bc.key] != null)
               .map((bc) => {
@@ -165,7 +165,7 @@ export default function ProfileBuilder() {
         {(activeCount > 0 || positionGroup) && (
           <button
             onClick={handleReset}
-            className="px-5 py-3 rounded-xl text-sm font-medium text-gray-500 bg-white border border-gray-200 hover:bg-gray-50 transition-all cursor-pointer"
+            className="px-5 py-3 rounded-xl text-sm font-medium text-muted-foreground bg-card border border-border hover:bg-muted transition-all cursor-pointer"
           >
             Reset
           </button>
@@ -176,7 +176,7 @@ export default function ProfileBuilder() {
           className={`flex-1 py-3 rounded-xl text-sm font-medium transition-all shadow-sm ${
             canSearch
               ? "bg-accent text-white hover:bg-accent-light cursor-pointer"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              : "bg-secondary text-muted-foreground cursor-not-allowed"
           }`}
           aria-disabled={!canSearch}
         >
@@ -191,24 +191,24 @@ export default function ProfileBuilder() {
         <div className="mt-10">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <div className="w-10 h-10 border-3 border-gray-200 border-t-accent rounded-full animate-spin" />
-              <p className="text-sm text-gray-400">Searching players...</p>
+              <div className="w-10 h-10 border-3 border-secondary border-t-accent rounded-full animate-spin" />
+              <p className="text-sm text-muted-foreground">Searching players...</p>
             </div>
           ) : (
             <>
               {/* Count header */}
               <div className="mb-6">
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className="text-xl font-semibold text-foreground">
                   Matching Players
                 </h3>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {totalCount} active {positionGroup?.toLowerCase()}
                   {totalCount !== 1 ? "s" : ""} meet your minimums
                 </p>
               </div>
 
               {results.length === 0 ? (
-                <div className="text-center py-10 text-gray-400">
+                <div className="text-center py-10 text-muted-foreground">
                   <p className="text-lg font-medium">No players found</p>
                   <p className="text-sm mt-1">
                     Try lowering some thresholds or choosing a different position
@@ -235,7 +235,7 @@ export default function ProfileBuilder() {
                       <button
                         onClick={handleLoadMore}
                         disabled={loadingMore}
-                        className="px-6 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                        className="px-6 py-2.5 text-sm font-medium text-muted-foreground bg-card border border-border rounded-xl hover:bg-muted hover:shadow-sm transition-all cursor-pointer disabled:opacity-50"
                       >
                         {loadingMore
                           ? "Loading..."

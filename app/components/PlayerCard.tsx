@@ -12,7 +12,7 @@ export default function PlayerCard({ data }: Props) {
   const { player, latest_season, stats } = data;
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+    <div className="bg-card rounded-2xl shadow-sm overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-700 p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
@@ -81,7 +81,7 @@ export default function PlayerCard({ data }: Props) {
             })}
           </div>
         ) : (
-          <p className="text-gray-400 text-sm py-6 text-center">
+          <p className="text-muted-foreground text-sm py-6 text-center">
             No stats available for this player.
           </p>
         )}

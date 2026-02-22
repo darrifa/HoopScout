@@ -13,12 +13,12 @@ export default function MatchCard({ match }: Props) {
   return (
     <Link
       href={`/player/${match.player_id}`}
-      className="block bg-white rounded-lg border border-gray-200 p-3 md:p-5 hover:shadow-md transition-shadow"
+      className="block bg-card rounded-lg border border-border p-3 md:p-5 hover:shadow-md transition-shadow"
     >
       {/* Row 1: Name + match badge */}
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-1.5 min-w-0">
-          <h3 className="font-semibold text-sm md:text-base text-gray-900 truncate">
+          <h3 className="font-semibold text-sm md:text-base text-foreground truncate">
             {match.full_name}
           </h3>
           <span
@@ -26,7 +26,7 @@ export default function MatchCard({ match }: Props) {
               e.preventDefault();
               window.open(playerSearchUrl(match.full_name, match.team), "_blank", "noopener,noreferrer");
             }}
-            className="hidden sm:inline text-gray-300 hover:text-accent shrink-0 transition-colors cursor-pointer"
+            className="hidden sm:inline text-muted-foreground/40 hover:text-accent shrink-0 transition-colors cursor-pointer"
             title="Search on Google"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@ export default function MatchCard({ match }: Props) {
             ${match.buckets_matched >= 6 ? "bg-green-100 text-green-700" : ""}
             ${match.buckets_matched === 5 ? "bg-yellow-100 text-yellow-700" : ""}
             ${match.buckets_matched === 4 ? "bg-orange-100 text-orange-700" : ""}
-            ${match.buckets_matched <= 3 ? "bg-gray-100 text-gray-600" : ""}
+            ${match.buckets_matched <= 3 ? "bg-muted text-muted-foreground" : ""}
           `}
         >
           {match.match_label}
@@ -48,7 +48,7 @@ export default function MatchCard({ match }: Props) {
       </div>
 
       {/* Row 2: Team · Conf · Class · Height */}
-      <div className="text-[11px] md:text-sm text-gray-500 mb-0.5">
+      <div className="text-[11px] md:text-sm text-muted-foreground mb-0.5">
         {match.team}
         {match.conference ? ` \u00b7 ${match.conference}` : ""}
         {match.class_year ? ` \u00b7 ${match.class_year}` : ""}
@@ -56,7 +56,7 @@ export default function MatchCard({ match }: Props) {
       </div>
 
       {/* Row 3: Games + usage */}
-      <div className="text-[10px] md:text-xs text-gray-400 mb-2">
+      <div className="text-[10px] md:text-xs text-muted-foreground mb-2">
         {match.games} games {"\u00b7"} {match.usage_rate?.toFixed(1)}% USG
       </div>
 
