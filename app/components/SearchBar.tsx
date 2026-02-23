@@ -2,6 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import type { SearchResult } from "@/app/lib/types";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import { Spinner } from "@/components/ui/spinner";
+import { Badge } from "@/components/ui/badge";
+import { Search } from "lucide-react";
 
 interface Props {
   onSelect: (player: SearchResult) => void;
@@ -15,7 +19,6 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
   const [loading, setLoading] = useState(false);
   const [highlightIdx, setHighlightIdx] = useState(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const doSearch = useCallback(async (q: string) => {
@@ -83,42 +86,26 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
       ref={wrapperRef}
       className={`relative w-full ${compact ? "max-w-xl" : "max-w-2xl"} mx-auto`}
     >
-      <div className="relative">
-        {/* Search icon */}
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-        <input
-          ref={inputRef}
-          type="text"
+      <InputGroup className={`rounded-xl shadow-sm hover:shadow-md transition-shadow ${compact ? "h-10" : "h-12"}`}>
+        <InputGroupAddon align="inline-start">
+          <Search className="size-5 text-muted-foreground" />
+        </InputGroupAddon>
+        <InputGroupInput
           value={query}
           onChange={(e) => handleChange(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => results.length > 0 && setIsOpen(true)}
           placeholder="Search for a player..."
-          className={`w-full pl-12 pr-4 bg-card border border-border rounded-xl shadow-sm
-                     focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
-                     transition-shadow hover:shadow-md
-                     ${compact ? "py-2 text-sm" : "py-3 text-base"}`}
+          className={compact ? "text-sm" : "text-base"}
         />
         {loading && (
-          <div className="absolute right-3.5 top-1/2 -translate-y-1/2">
-            <div className="w-5 h-5 border-2 border-border border-t-accent rounded-full animate-spin" />
-          </div>
+          <InputGroupAddon align="inline-end">
+            <Spinner className="size-5 text-accent" />
+          </InputGroupAddon>
         )}
-      </div>
+      </InputGroup>
 
-      {/* Dropdown */}
+      {/* Dropdown — custom logic preserved as-is */}
       {isOpen && results.length > 0 && (
         <ul className="absolute top-full left-0 right-0 mt-1 bg-card rounded-xl shadow-lg border border-border overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
           {results.map((player, idx) => (
@@ -135,14 +122,12 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
                     {player.full_name}
                   </span>
                   {player.is_graduated && (
-                    <span className="text-xs bg-muted text-muted-foreground rounded-full px-2 py-0.5">
-                      historical
-                    </span>
+                    <Badge variant="secondary">historical</Badge>
                   )}
                 </div>
-                <span className="text-xs font-medium bg-primary/15 text-primary rounded-full px-2 py-1 shrink-0 ml-3">
+                <Badge variant="outline" className="bg-primary/15 text-primary border-transparent shrink-0 ml-3">
                   {player.position_group}
-                </span>
+                </Badge>
               </div>
               <div className="text-sm text-muted-foreground mt-0.5">
                 {player.team}

@@ -10,6 +10,9 @@ import {
 } from "@/app/lib/types";
 import DimensionScale from "./DimensionScale";
 import BuildResultCard from "./BuildResultCard";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 
 const LIMIT = 20;
 
@@ -110,29 +113,28 @@ export default function ProfileBuilder() {
       </div>
 
       {/* Position Selector */}
-      <div className="bg-card rounded-xl border border-border p-5 mb-4 shadow-sm">
-        <div className="text-sm font-medium text-foreground mb-3">
-          Position Group
-        </div>
-        <div className="flex gap-2">
-          {POSITION_GROUPS.map((pos) => (
-            <button
-              key={pos}
-              onClick={() => setPositionGroup(pos)}
-              className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all border cursor-pointer ${
-                positionGroup === pos
-                  ? "bg-accent text-white border-accent"
-                  : "bg-card text-muted-foreground border-border hover:border-foreground/20"
-              }`}
-            >
-              {pos}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Card className="mb-4">
+        <CardContent>
+          <div className="text-sm font-medium text-foreground mb-3">
+            Position Group
+          </div>
+          <div className="flex gap-2">
+            {POSITION_GROUPS.map((pos) => (
+              <Button
+                key={pos}
+                onClick={() => setPositionGroup(pos)}
+                variant={positionGroup === pos ? "default" : "outline"}
+                className="flex-1 py-2.5 cursor-pointer"
+              >
+                {pos}
+              </Button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Dimension Scales */}
-      <div className="bg-card rounded-xl border border-border shadow-sm px-5 divide-y divide-border/50">
+      <Card className="px-5 py-0 divide-y divide-border/50">
         {BUCKET_CONFIG.map((bc) => (
           <DimensionScale
             key={bc.key}
@@ -142,7 +144,7 @@ export default function ProfileBuilder() {
             onChange={(val) => handleDimensionChange(bc.key, val)}
           />
         ))}
-      </div>
+      </Card>
 
       {/* Summary Bar */}
       {activeCount > 0 && (
@@ -163,27 +165,25 @@ export default function ProfileBuilder() {
       {/* Action Buttons */}
       <div className="flex gap-3 mt-5">
         {(activeCount > 0 || positionGroup) && (
-          <button
+          <Button
             onClick={handleReset}
-            className="px-5 py-3 rounded-xl text-sm font-medium text-muted-foreground bg-card border border-border hover:bg-muted transition-all cursor-pointer"
+            variant="outline"
+            size="lg"
+            className="px-5 cursor-pointer"
           >
             Reset
-          </button>
+          </Button>
         )}
-        <button
+        <Button
           onClick={handleSearch}
           disabled={!canSearch}
-          className={`flex-1 py-3 rounded-xl text-sm font-medium transition-all shadow-sm ${
-            canSearch
-              ? "bg-accent text-white hover:bg-accent-light cursor-pointer"
-              : "bg-secondary text-muted-foreground cursor-not-allowed"
-          }`}
-          aria-disabled={!canSearch}
+          size="lg"
+          className="flex-1 cursor-pointer"
         >
           {canSearch
             ? `Find ${positionGroup}s matching ${activeCount} ${activeCount === 1 ? "criterion" : "criteria"}`
             : "Set a position and at least one minimum"}
-        </button>
+        </Button>
       </div>
 
       {/* Results */}
@@ -191,7 +191,7 @@ export default function ProfileBuilder() {
         <div className="mt-10">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <div className="w-10 h-10 border-3 border-secondary border-t-accent rounded-full animate-spin" />
+              <Spinner className="size-10 text-accent" />
               <p className="text-sm text-muted-foreground">Searching players...</p>
             </div>
           ) : (
@@ -232,15 +232,17 @@ export default function ProfileBuilder() {
                   {/* Load More */}
                   {results.length < totalCount && (
                     <div className="flex justify-center mt-8">
-                      <button
+                      <Button
                         onClick={handleLoadMore}
                         disabled={loadingMore}
-                        className="px-6 py-2.5 text-sm font-medium text-muted-foreground bg-card border border-border rounded-xl hover:bg-muted hover:shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                        variant="outline"
+                        size="lg"
+                        className="cursor-pointer"
                       >
                         {loadingMore
                           ? "Loading..."
                           : `Show More (${totalCount - results.length} remaining)`}
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </>

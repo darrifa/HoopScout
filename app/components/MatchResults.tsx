@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import type { MatchesResponse } from "@/app/lib/types";
 import MatchCard from "./MatchCard";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
   data: MatchesResponse;
@@ -35,13 +37,13 @@ export default function MatchResults({ data }: Props) {
   return (
     <div>
       {/* Header */}
-      <div>
+      <div className="flex items-center gap-3">
         <h3 className="text-xl font-semibold text-foreground">
           Top Matches
         </h3>
-        <p className="text-sm text-muted-foreground mt-1">
-          {total_candidates_evaluated} active {reference.player.position_group}s evaluated
-        </p>
+        <Badge variant="secondary">
+          {total_candidates_evaluated} {reference.player.position_group}s evaluated
+        </Badge>
       </div>
 
       {/* Match cards grid */}
@@ -54,14 +56,15 @@ export default function MatchResults({ data }: Props) {
       {/* Load More */}
       {visibleCount < matches.length && (
         <div className="flex justify-center mt-8">
-          <button
+          <Button
+            variant="outline"
+            size="lg"
             onClick={() =>
               setVisibleCount((c) => Math.min(c + LOAD_MORE_COUNT, matches.length))
             }
-            className="px-6 py-2.5 text-sm font-medium text-muted-foreground bg-card border border-border rounded-xl hover:bg-muted hover:shadow-sm transition-all cursor-pointer"
           >
             Show More ({matches.length - visibleCount} remaining)
-          </button>
+          </Button>
         </div>
       )}
     </div>

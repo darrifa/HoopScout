@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
+
 interface Props {
   label: string;
   tooltip?: string;
@@ -52,20 +60,16 @@ export default function DimensionScale({ label, tooltip, value, onChange }: Prop
         <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
           {label}
           {tooltip && (
-            <span className="relative group">
-              <svg
-                className="w-3.5 h-3.5 text-muted-foreground/40 group-hover:text-muted-foreground transition-colors cursor-help"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                <path strokeWidth="2" strokeLinecap="round" d="M12 16v0m0-8a2.5 2.5 0 011.5 4.5c-.5.3-1.5.8-1.5 1.5" />
-              </svg>
-              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 px-3 py-2 text-xs font-normal text-muted-foreground bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 pointer-events-none z-50 leading-relaxed">
-                {tooltip}
-              </span>
-            </span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="cursor-help">
+                  <Info className="size-3.5 text-muted-foreground/40 hover:text-muted-foreground transition-colors" />
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-56 leading-relaxed">
+                  {tooltip}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </span>
         <span className={`text-xs font-medium ${ctx.color}`}>
@@ -77,7 +81,7 @@ export default function DimensionScale({ label, tooltip, value, onChange }: Prop
         </span>
       </div>
 
-      {/* Scale track */}
+      {/* Scale track — custom segment buttons preserved as-is */}
       <div className="relative">
         <div className="flex gap-1 items-center">
           {/* Any button */}

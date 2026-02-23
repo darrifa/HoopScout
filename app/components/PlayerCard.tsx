@@ -3,6 +3,9 @@
 import type { PlayerDetailResponse } from "@/app/lib/types";
 import { BUCKET_CONFIG, heightDisplay, playerSearchUrl } from "@/app/lib/types";
 import BucketBar from "./BucketBar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink } from "lucide-react";
 
 interface Props {
   data: PlayerDetailResponse;
@@ -12,8 +15,8 @@ export default function PlayerCard({ data }: Props) {
   const { player, latest_season, stats } = data;
 
   return (
-    <div className="bg-card rounded-2xl shadow-sm overflow-hidden">
-      {/* Header */}
+    <Card className="overflow-hidden py-0">
+      {/* Header — intentionally hardcoded dark gradient for contrast */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-700 p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <div>
@@ -28,10 +31,7 @@ export default function PlayerCard({ data }: Props) {
                 className="text-gray-400 hover:text-white shrink-0 transition-colors"
                 title="View on Barttorvik"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                <ExternalLink className="size-4" />
               </a>
             </div>
             <p className="text-gray-300 text-sm mt-0.5">
@@ -41,9 +41,9 @@ export default function PlayerCard({ data }: Props) {
             </p>
           </div>
           <div className="flex items-center gap-3 mt-1 sm:mt-0">
-            <span className="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+            <Badge className="uppercase tracking-wider">
               {player.position_group}
-            </span>
+            </Badge>
             {player.height_inches && (
               <span className="text-white text-sm font-medium">
                 {heightDisplay(player.height_inches)}
@@ -61,7 +61,7 @@ export default function PlayerCard({ data }: Props) {
       </div>
 
       {/* Bucket bars */}
-      <div className="p-6">
+      <CardContent className="p-6">
         {stats ? (
           <div className="space-y-4">
             {BUCKET_CONFIG.map((bc) => {
@@ -85,7 +85,7 @@ export default function PlayerCard({ data }: Props) {
             No stats available for this player.
           </p>
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
