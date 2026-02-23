@@ -51,19 +51,19 @@ export default function Home() {
 
           {/* Stat cards */}
           <div className="flex justify-center gap-8 mt-16 flex-wrap">
-            <Card className="px-8 py-6 text-center rounded-2xl">
+            <Card className="px-8 py-6 text-center">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold text-foreground">90,000+</div>
                 <div className="text-sm text-muted-foreground mt-1">Player Seasons</div>
               </CardContent>
             </Card>
-            <Card className="px-8 py-6 text-center rounded-2xl">
+            <Card className="px-8 py-6 text-center">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold text-foreground">19</div>
                 <div className="text-sm text-muted-foreground mt-1">Years of Data</div>
               </CardContent>
             </Card>
-            <Card className="px-8 py-6 text-center rounded-2xl">
+            <Card className="px-8 py-6 text-center">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold text-foreground">7</div>
                 <div className="text-sm text-muted-foreground mt-1">Matching Dimensions</div>

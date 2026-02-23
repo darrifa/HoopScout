@@ -148,7 +148,7 @@ export default function ProfileBuilder() {
 
       {/* Summary Bar */}
       {activeCount > 0 && (
-        <div className="mt-4 bg-primary/10 border border-primary/20 rounded-xl p-4">
+        <div className="mt-4 bg-primary/10 border border-primary/20 rounded-md p-4">
           <div className="text-sm text-primary">
             <span className="font-semibold">Your criteria:</span>{" "}
             {BUCKET_CONFIG.filter((bc) => minimums[bc.key] != null)

@@ -86,7 +86,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
       ref={wrapperRef}
       className={`relative w-full ${compact ? "max-w-xl" : "max-w-2xl"} mx-auto`}
     >
-      <InputGroup className={`rounded-xl shadow-sm hover:shadow-md transition-shadow ${compact ? "h-10" : "h-12"}`}>
+      <InputGroup className={compact ? "h-10" : "h-12"}>
         <InputGroupAddon align="inline-start">
           <Search className="size-5 text-muted-foreground" />
         </InputGroupAddon>
@@ -107,7 +107,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
 
       {/* Dropdown — custom logic preserved as-is */}
       {isOpen && results.length > 0 && (
-        <ul className="absolute top-full left-0 right-0 mt-1 bg-card rounded-xl shadow-lg border border-border overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
+        <ul className="absolute top-full left-0 right-0 mt-1 bg-card rounded-md shadow-lg border border-border overflow-hidden z-50 max-h-80 overflow-y-auto text-left">
           {results.map((player, idx) => (
             <li
               key={player.id}
@@ -140,7 +140,7 @@ export default function SearchBar({ onSelect, compact = false }: Props) {
       )}
 
       {isOpen && results.length === 0 && query.trim().length >= 2 && !loading && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-card rounded-xl shadow-lg border border-border overflow-hidden z-50 px-4 py-3 text-sm text-muted-foreground">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-card rounded-md shadow-lg border border-border overflow-hidden z-50 px-4 py-3 text-sm text-muted-foreground">
           No players found for &ldquo;{query}&rdquo;
         </div>
       )}
