@@ -29,7 +29,7 @@ export default function BuildPage() {
             onValueChange={(val) => {
               if (val === "search") router.push("/");
             }}
-            className="mt-8 items-center"
+            className="mt-8 flex-col items-center"
           >
             <TabsList>
               <TabsTrigger value="search" className="px-5">Search by Player</TabsTrigger>

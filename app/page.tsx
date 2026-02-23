@@ -35,7 +35,7 @@ export default function Home() {
             onValueChange={(val) => {
               if (val === "build") router.push("/build");
             }}
-            className="mt-8 items-center"
+            className="mt-8 flex-col items-center"
           >
             <TabsList>
               <TabsTrigger value="search" className="px-5">Search by Player</TabsTrigger>
